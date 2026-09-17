@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meet The Team · Dự án Gây quỹ</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- LOCKER WALL -->
+    <div class="wall" id="wall">
+      <div class="decor" aria-hidden="true">
+        <span class="s1">★</span>
+        <span class="s2">✦</span>
+        <span class="s3">★</span>
+        <span class="s4">☺</span>
+        <span class="s5">♥</span>
+        <div class="tape-wall a"></div>
+        <div class="tape-wall b"></div>
+      </div>
+
+      <header class="wall-header">
+        <h1 class="title">
+          <span class="meet">Meet</span>
+          <span class="the">The</span>
+          <span class="officers">Team</span>
+          <span class="title-bang">!</span>
+        </h1>
+        <p class="subtitle">Click vào tủ để xem hồ sơ thành viên</p>
+      </header>
+
+      <div class="locker-grid" id="grid"></div>
+      <p class="hint">SSG105 · Dự án Gây quỹ</p>
+    </div>
+
+    <!-- PROFILE SCRAPBOOK -->
+    <div class="profile-view" id="profile" aria-hidden="true">
+      <div class="desk">
+        <!-- desk surface decorations -->
+        <div class="desk-decor" aria-hidden="true">
+          <div class="desk-sticker ds1">★</div>
+          <div class="desk-sticker ds2">♥</div>
+          <div class="desk-sticker ds3">✦</div>
+          <div class="desk-sticker ds4">☺</div>
+          <div class="desk-tape dt1"></div>
+          <div class="desk-tape dt2"></div>
+          <div class="desk-tape dt3"></div>
+          <div class="desk-stain s1"></div>
+          <div class="desk-stain s2"></div>
+          <div class="desk-paper-scrap"></div>
+          <div class="desk-clip-loose"></div>
+          <div class="desk-pin p1"></div>
+          <div class="desk-pin p2"></div>
+        </div>
+
+        <div class="clipboard" id="clipboard">
+          <div class="prop pen"></div>
+          <div class="prop envelope"></div>
+          <div class="prop notes"></div>
+
+          <div class="clip"></div>
+          <div class="clip-board">
+            <div class="paper">
+              <!-- scrapbook decorations -->
+              <div class="scrap-decor" aria-hidden="true">
+                <span class="sd star1">★</span>
+                <span class="sd star2">✦</span>
+                <span class="sd heart">♥</span>
+                <span class="sd burst">✸</span>
+                <span class="sd smile">☺</span>
+                <div class="washi washi-a"></div>
+                <div class="washi washi-b"></div>
+                <div class="corner-stamp">SSG105</div>
+              </div>
+
+              <!-- ID Card -->
+              <div class="id-card">
+                <div class="id-top">
+                  <span>SSG105</span>
+                  <span>K20</span>
+                </div>
+                <div class="id-body">
+                  <div class="id-photo placeholder" id="idPhoto">?</div>
+                  <div class="id-info">
+                    <p id="idName">NAME : —</p>
+                    <p id="idPos">VỊ TRÍ : —</p>
+                  </div>
+                </div>
+                <div class="id-logo">SSG105</div>
+                <div class="id-sign" id="idSign">—</div>
+              </div>
+
+              <!-- Name block -->
+              <h2 class="profile-name" id="pName">—</h2>
+              <p class="profile-user" id="pUser">@—</p>
+<!-- Strengths only -->
+              <div class="lists">
+                <div class="list-block strengths">
+                  <h4>Kỹ năng + Điểm mạnh</h4>
+                  <ul id="pStrengths"></ul>
+                </div>
+              </div>
+
+              <!-- Sticky note -->
+              <div class="sticky">
+                <p id="pNote">—</p>
+              </div>
+
+              <!-- Slogan -->
+              <div class="slogan-line">
+                <strong>Slogan</strong>
+                <span id="pSlogan">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="back-btn" id="backBtn">
+        ← QUAY LẠI NHÓM
+      </button>
+    </div>
+
+    <script>
+      // ============================================================
+      // EDIT MEMBER DATA HERE
+      // ============================================================
+      const members = [
+        {
+          id: 1,
+          name: "Lương Minh Khánh",
+          username: "@khanhlm",
+          role: "Team Leader / Điều phối",
+          lockerNumber: "2009",
+          initial: "K",
+          color: "#3a7ca5",
+          accent: "#ffd166",
+          photo: null,
+          strengths: ["Thuyết trình tốt", "Có tài ăn nói mời khách"],
+          note: "Xin chào, mình là Khánh!\nMình khá tự tin trong giao tiếp và đặc biệt thích đứng trước đám đông. Nếu team cần một người thuyết trình, mở lời với khách hay khuấy động không khí thì cứ gọi mình nhé!",
+          slogan: "Cứ tự tin nói, để mình kết nối.",
+        },
+        {
+          id: 2,
+          name: "Lê Thị Tuyết Lan",
+          username: "@tuyetlan",
+          role: "Design / Content",
+          lockerNumber: "2010",
+          initial: "L",
+          color: "#5c4d7a",
+          accent: "#ef476f",
+          photo: null,
+          strengths: [
+            "Học nhanh nhớ nhanh",
+            "Năng nổ",
+            "Tinh thần trách nhiệm cao",
+          ],
+          note: "Xin chào, mình là Lan!\nMình học khá nhanh, làm việc năng nổ và luôn cố gắng hết mình với những gì mình đã nhận. Với mình, đã vào team thì không chỉ góp mặt, mà phải góp sức!",
+          slogan: "Ý tưởng trong đầu, sáng tạo trong tay",
+        },
+        {
+          id: 3,
+          name: "Nguyễn Quốc Toàn",
+          username: "@quoctoan",
+          role: "Bán hàng / Ngoại giao",
+          lockerNumber: "2011",
+          initial: "T",
+          color: "#2a9d8f",
+          accent: "#06d6a0",
+          photo: null,
+          strengths: ["Ngoại giao tốt"],
+          note: "Xin chào, mình là Toàn (K19)!\nĐiểm mạnh của mình là… nói chuyện với mọi người mà không ngại ngùng gì hết :)) Mình thích kết nối, giao tiếp và thuyết phục mọi người, nên nếu team cần một “đại sứ ngoại giao” thì mình xin nhận!",
+          slogan: "Gặp nhau là duyên, kết nối là chuyện của Toàn.",
+        },
+        {
+          id: 4,
+          name: "Nguyễn Khánh Trình",
+          username: "@khanhtrinh",
+          role: "Hậu cần / Content",
+          lockerNumber: "2012",
+          initial: "T",
+          color: "#e76f51",
+          accent: "#e9c46a",
+          photo: null,
+          strengths: ["Tinh thần trách nhiệm", "Làm việc nhóm"],
+          note: "Hi, mình là Trình!\nMình không phải người nói nhiều nhất team, nhưng một khi đã nhận việc thì sẽ cố gắng làm đến nơi đến chốn. Mình thích làm việc cùng mọi người và tin rằng teamwork tốt thì deadline cũng bớt đáng sợ hơn!",
+          slogan: "Đã nhận là làm, đã làm là tới",
+        },
+        {
+          id: 5,
+          name: "Nguyễn Việt Quân",
+          username: "@vietquan",
+          role: "Tài chính / Thủ quỹ",
+          lockerNumber: "2013",
+          initial: "Q",
+          color: "#457b9d",
+          accent: "#f4a261",
+          photo: null,
+          strengths: ["Làm thuyết trình", "Tính sổ sách"],
+          note: "Chào mọi người, mình là Quân!\nMình thích thuyết trình, nhưng cũng khá thân với những con số. Vì vậy trong team, mình có thể vừa đứng lên trình bày, vừa ngồi xuống kiểm tra xem… tiền đang đi đâu về đâu.",
+          slogan: "Nói chuyện bằng lời, quản lý bằng số.",
+        },
+        {
+          id: 6,
+          name: "Nguyễn Minh Hoàng",
+          username: "@minhhoang",
+          role: "Hậu cần / Sản xuất",
+          lockerNumber: "2014",
+          initial: "H",
+          color: "#9b5de5",
+          accent: "#00bbf9",
+          photo: null,
+          strengths: ["Biết pha chế", "Đếm tiền giỏi"],
+          note: "Xin chào, mình là Hoàng!\nMình có một chút năng khiếu pha chế và đặc biệt là… đếm tiền khá nhanh. Vì vậy nếu team cần người chuẩn bị đồ uống hay kiểm tra doanh thu thì cứ để mình lo!",
+          slogan: "Pha được đồ uống, đếm được cả doanh thu.",
+        },
+      ];
+
+      const wall = document.getElementById("wall");
+      const grid = document.getElementById("grid");
+      const profile = document.getElementById("profile");
+      const backBtn = document.getElementById("backBtn");
+
+      let busy = false;
+
+      members.forEach((m) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "locker";
+        btn.style.setProperty("--lc", m.color);
+        btn.style.setProperty("--ac", m.accent);
+        btn.setAttribute("aria-label", `Mở hồ sơ của ${m.name}`);
+        btn.innerHTML = `
+        <div class="locker-inner">
+          <div class="vents"><i></i><i></i><i></i><i></i></div>
+          <div class="lnum">${m.lockerNumber}</div>
+          <div class="avatar"><div class="avatar-circle">${m.initial}</div></div>
+          <div class="plate">
+            <span class="nm">${m.name}</span>
+            <span class="rl">${m.role}</span>
+          </div>
+          <div class="handle"></div>
+          <span class="sticker a">★</span>
+          <span class="sticker b">♥</span>
+        </div>
+        <div class="door-edge"></div>
+      `;
+        btn.addEventListener("click", () => openProfile(m, btn));
+        grid.appendChild(btn);
+      });
+
+      function fillProfile(m) {
+        document.getElementById("pName").textContent = m.name;
+        document.getElementById("pUser").textContent = m.username;
+        // role shown on ID card & locker plate
+        document.getElementById("idName").textContent =
+          "NAME : " + m.name.toUpperCase();
+        document.getElementById("idPos").textContent =
+          "VỊ TRÍ : " + m.role.toUpperCase();
+        document.getElementById("idSign").textContent = m.name.split(" ").pop();
+        document.getElementById("pNote").textContent = m.note;
+        document.getElementById("pSlogan").textContent = m.slogan || "—";
+
+        const photoEl = document.getElementById("idPhoto");
+        if (m.photo) {
+          photoEl.outerHTML = `<img class="id-photo" id="idPhoto" src="${m.photo}" alt="${m.name}" />`;
+        } else {
+          photoEl.className = "id-photo placeholder";
+          photoEl.textContent = m.initial;
+          photoEl.removeAttribute("src");
+        }
+
+        const sUl = document.getElementById("pStrengths");
+        sUl.innerHTML = m.strengths.map((s) => `<li>${s}</li>`).join("");
+      }
+
+      function openProfile(member, btn) {
+        if (busy) return;
+        busy = true;
+
+        document.querySelectorAll(".locker").forEach((el) => {
+          el.classList.toggle("selected", el === btn);
+          el.classList.toggle("dimmed", el !== btn);
+        });
+
+        setTimeout(() => btn.classList.add("opening"), 250);
+
+        fillProfile(member);
+
+        setTimeout(() => {
+          profile.classList.add("open");
+          profile.setAttribute("aria-hidden", "false");
+          wall.classList.add("hidden");
+          busy = false;
+        }, 520);
+      }
+
+      function closeProfile() {
+        if (busy) return;
+        busy = true;
+
+        profile.classList.remove("open");
+        profile.setAttribute("aria-hidden", "true");
+
+        setTimeout(() => {
+          wall.classList.remove("hidden");
+          document.querySelectorAll(".locker").forEach((el) => {
+            el.classList.remove("selected", "dimmed", "opening");
+          });
+          busy = false;
+        }, 400);
+      }
+
+      backBtn.addEventListener("click", closeProfile);
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && profile.classList.contains("open"))
+          closeProfile();
+      });
+    </script>
+  </body>
+</html>

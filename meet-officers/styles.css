@@ -1,0 +1,569 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Fredoka:wght@500;600;700&family=JetBrains+Mono:wght@500&display=swap");
+
+:root {
+  --locker-bot: #1a4a62;
+  --ink: #1a1a2e;
+  --navy: #1e3a5f;
+  --navy-mid: #2a4a7a;
+  --paper: #faf7f0;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: "Be Vietnam Pro", system-ui, -apple-system, sans-serif;
+  background: var(--locker-bot);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+button { font-family: inherit; border: none; background: none; cursor: pointer; }
+
+/* ========== LOCKER WALL ========== */
+.wall {
+  min-height: 100%; min-height: 100dvh;
+  position: relative;
+  padding: 1.25rem 1rem 2.5rem;
+  display: flex; flex-direction: column; align-items: center;
+  background: linear-gradient(180deg, #3d92bc 0%, #2b6a8a 40%, #1e4d66 100%);
+  overflow: hidden;
+  transition: filter 0.5s ease, opacity 0.45s ease;
+}
+.wall::before {
+  content: ""; position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0;
+}
+.wall.hidden { filter: brightness(0.4) blur(2px); pointer-events: none; }
+
+.decor { position: absolute; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
+.decor span {
+  position: absolute; font-size: 1.6rem;
+  filter: drop-shadow(1px 1px 0 rgba(0,0,0,0.2));
+  animation: bob 6s ease-in-out infinite;
+}
+.decor .s1 { top: 6%; left: 4%; color: #ffd166; font-size: 2rem; }
+.decor .s2 { top: 12%; right: 7%; color: #ef476f; animation-delay: 1s; }
+.decor .s3 { bottom: 20%; left: 8%; color: #06d6a0; animation-delay: 2s; }
+.decor .s4 { top: 28%; right: 4%; font-size: 2.2rem; color: #ffd166; animation-delay: 0.5s; }
+.decor .s5 { bottom: 12%; right: 14%; color: #ef476f; animation-delay: 1.5s; }
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50% { transform: translateY(-8px) rotate(6deg); }
+}
+.tape-wall {
+  position: absolute; width: 58px; height: 16px;
+  background: rgba(255,240,180,0.55);
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.12); z-index: 2;
+}
+.tape-wall.a { top: 10%; left: 16%; transform: rotate(-12deg); }
+.tape-wall.b { bottom: 22%; right: 18%; transform: rotate(15deg); width: 44px; }
+
+.wall-header { position: relative; z-index: 5; text-align: center; margin-bottom: 1.25rem; }
+.title {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline;
+  gap: 0.15rem 0.35rem; line-height: 0.9;
+}
+
+/* Comic / poster style like reference image */
+.title .meet, .title .the, .title .officers {
+  font-family: "Fredoka", "Be Vietnam Pro", sans-serif;
+  font-weight: 700;
+  -webkit-text-stroke: 0;
+  paint-order: stroke fill;
+}
+.title .meet {
+  font-size: clamp(2.5rem, 9vw, 4.4rem);
+  color: #fff;
+  text-shadow:
+    -3px -3px 0 #2b4acb, 3px -3px 0 #2b4acb, -3px 3px 0 #2b4acb, 3px 3px 0 #2b4acb,
+    -3px 0 0 #2b4acb, 3px 0 0 #2b4acb, 0 -3px 0 #2b4acb, 0 3px 0 #2b4acb,
+    4px 4px 0 rgba(0,0,0,0.25);
+  transform: rotate(-2deg);
+}
+.title .the {
+  font-size: clamp(1.4rem, 4.5vw, 2.2rem);
+  color: #fff;
+  text-shadow:
+    -2px -2px 0 #2b4acb, 2px -2px 0 #2b4acb, -2px 2px 0 #2b4acb, 2px 2px 0 #2b4acb,
+    3px 3px 0 rgba(0,0,0,0.2);
+  transform: rotate(3deg) translateY(-6px);
+}
+.title .officers {
+  font-size: clamp(2.8rem, 10vw, 5rem);
+  color: #ffe566;
+  text-shadow:
+    -4px -4px 0 #2b4acb, 4px -4px 0 #2b4acb, -4px 4px 0 #2b4acb, 4px 4px 0 #2b4acb,
+    -4px 0 0 #2b4acb, 4px 0 0 #2b4acb, 0 -4px 0 #2b4acb, 0 4px 0 #2b4acb,
+    5px 5px 0 rgba(0,0,0,0.28);
+  transform: rotate(-1deg);
+}
+.title-bang {
+  display: inline-block;
+  font-size: clamp(1.9rem, 6vw, 3.2rem);
+  color: #ff4d6d;
+  font-weight: 800;
+  transform: rotate(14deg) translateY(-4px);
+  filter: drop-shadow(2px 2px 0 #1a1a5e);
+  text-shadow: 2px 2px 0 #fff;
+}
+
+.subtitle {
+  margin-top: 0.65rem; font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 1.1rem; font-weight: 500; color: rgba(255,255,255,0.9);
+}
+
+.locker-grid {
+  position: relative; z-index: 5;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.1rem 1.4rem; max-width: 900px; width: 100%; padding: 0.5rem;
+}
+
+.locker {
+  position: relative; aspect-ratio: 3 / 4.15; max-height: 300px;
+  border-radius: 7px 7px 5px 5px;
+  background: linear-gradient(160deg, var(--lc, #3a7ca5) 0%, color-mix(in srgb, var(--lc, #3a7ca5) 62%, #000) 100%);
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), inset 0 -5px 10px rgba(0,0,0,0.25),
+    5px 10px 20px rgba(0,0,0,0.35), 0 0 0 2px rgba(0,0,0,0.12);
+  transition: transform 0.4s cubic-bezier(0.34, 1.45, 0.64, 1), box-shadow 0.3s, filter 0.4s, opacity 0.4s;
+  overflow: hidden; padding: 0;
+}
+.locker:hover:not(.dimmed):not(.selected) { transform: translateY(-8px) scale(1.03); z-index: 12; }
+.locker.selected {
+  transform: scale(1.12); z-index: 40;
+  box-shadow: 0 0 0 4px var(--ac, #ffd166), 0 0 30px color-mix(in srgb, var(--ac, #ffd166) 50%, transparent),
+    10px 20px 40px rgba(0,0,0,0.45);
+  filter: brightness(1.1);
+}
+.locker.opening { transform: scale(1.2) translateY(-8px); }
+.locker.dimmed {
+  opacity: 0.28; filter: blur(2.5px) brightness(0.6); transform: scale(0.94); pointer-events: none;
+}
+
+.locker-inner {
+  position: relative; width: 100%; height: 100%;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 0.55rem 0.45rem 0.7rem;
+}
+.vents { display: flex; gap: 5px; margin-bottom: 0.3rem; }
+.vents i { display: block; width: 16px; height: 4px; background: rgba(0,0,0,0.38); border-radius: 1px; }
+.lnum {
+  font-family: "JetBrains Mono", monospace; font-size: 0.68rem;
+  color: rgba(255,255,255,0.78); letter-spacing: 0.08em;
+  background: rgba(0,0,0,0.28); padding: 2px 8px; border-radius: 3px; margin-bottom: 0.3rem;
+}
+.avatar { flex: 1; display: flex; align-items: center; justify-content: center; width: 100%; min-height: 0; }
+.avatar-circle {
+  width: 58%; aspect-ratio: 1; border-radius: 50%;
+  background: rgba(255,255,255,0.15); border: 3px solid rgba(255,255,255,0.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; font-weight: 700; color: rgba(255,255,255,0.92);
+  transition: transform 0.3s ease;
+}
+.locker:hover:not(.dimmed) .avatar-circle { transform: translateY(-5px); }
+.plate {
+  background: rgba(255,255,255,0.94); border: 2px solid rgba(0,0,0,0.12);
+  border-radius: 3px; padding: 0.22rem 0.4rem; text-align: center; width: 90%;
+  box-shadow: 1px 2px 0 rgba(0,0,0,0.12); margin-top: auto;
+}
+.plate .nm { display: block; font-weight: 700; font-size: 0.72rem; color: var(--ink); line-height: 1.25; }
+.plate .rl { display: block; font-family: "Be Vietnam Pro", sans-serif; font-size: 0.64rem; font-weight: 500; color: #555; margin-top: 1px; }
+.handle {
+  position: absolute; right: 7px; top: 42%; width: 13px; height: 26px;
+  background: linear-gradient(90deg, #cfcfcf, #888); border-radius: 2px 4px 4px 2px;
+  box-shadow: inset 1px 0 0 rgba(255,255,255,0.4), 1px 2px 3px rgba(0,0,0,0.3);
+}
+.handle::after {
+  content: ""; position: absolute; left: 3px; top: 7px; width: 5px; height: 11px;
+  background: #555; border-radius: 1px;
+}
+.sticker { position: absolute; font-size: 1rem; pointer-events: none; filter: drop-shadow(1px 1px 0 rgba(0,0,0,0.2)); }
+.sticker.a { top: 15%; left: 6%; color: #ffd166; transform: rotate(-12deg); }
+.sticker.b { top: 11%; right: 18%; color: #ef476f; font-size: 0.85rem; transform: rotate(14deg); }
+.door-edge {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.25), rgba(0,0,0,0.15));
+  border-radius: 7px 0 0 5px;
+}
+.hint {
+  position: relative; z-index: 5; margin-top: 1.25rem;
+  font-family: "JetBrains Mono", monospace; font-size: 0.72rem;
+  letter-spacing: 0.06em; color: rgba(255,255,255,0.55);
+}
+
+/* ========== PROFILE SCRAPBOOK ========== */
+.profile-view {
+  position: fixed; inset: 0; z-index: 200;
+  overflow-y: auto; overflow-x: hidden;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.profile-view.open { opacity: 1; pointer-events: auto; }
+
+.desk {
+  min-height: 100%; min-height: 100dvh;
+  padding: 2rem 1rem 5.5rem;
+  display: flex; justify-content: center; align-items: flex-start;
+  background:
+    radial-gradient(ellipse at 20% 15%, rgba(255,230,180,0.18), transparent 45%),
+    radial-gradient(ellipse at 80% 70%, rgba(120,70,30,0.2), transparent 50%),
+    linear-gradient(160deg, #d9be94 0%, #c4a06e 35%, #a88252 70%, #8f6d42 100%);
+  position: relative;
+  overflow: hidden;
+}
+.desk::before {
+  content: ""; position: absolute; inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.14'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 38px,
+      rgba(80,45,15,0.04) 38px,
+      rgba(80,45,15,0.04) 40px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+.desk::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 120px 40px at 15% 40%, rgba(60,30,10,0.12), transparent),
+    radial-gradient(ellipse 90px 30px at 85% 25%, rgba(60,30,10,0.1), transparent),
+    radial-gradient(ellipse 100px 35px at 70% 80%, rgba(60,30,10,0.08), transparent);
+  pointer-events: none; z-index: 0;
+}
+
+/* Desk surface decorations */
+.desk-decor {
+  position: absolute; inset: 0; pointer-events: none; z-index: 1; overflow: hidden;
+}
+.desk-sticker {
+  position: absolute; font-size: 1.4rem;
+  filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.2));
+  opacity: 0.85;
+}
+.desk-sticker.ds1 { top: 8%; left: 6%; color: #ffd166; font-size: 1.8rem; transform: rotate(-18deg); }
+.desk-sticker.ds2 { top: 18%; right: 7%; color: #ef476f; font-size: 1.5rem; transform: rotate(12deg); }
+.desk-sticker.ds3 { bottom: 22%; left: 8%; color: #06d6a0; font-size: 1.3rem; transform: rotate(-8deg); }
+.desk-sticker.ds4 { bottom: 14%; right: 10%; color: #ffd166; font-size: 1.6rem; transform: rotate(20deg); }
+
+.desk-tape {
+  position: absolute; height: 18px;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.12);
+  opacity: 0.8;
+}
+.desk-tape.dt1 {
+  top: 12%; left: 12%; width: 70px;
+  background: rgba(255, 220, 120, 0.65);
+  transform: rotate(-25deg);
+}
+.desk-tape.dt2 {
+  top: 55%; right: 5%; width: 55px;
+  background: rgba(180, 220, 255, 0.55);
+  transform: rotate(18deg);
+}
+.desk-tape.dt3 {
+  bottom: 28%; left: 4%; width: 48px;
+  background: rgba(255, 180, 180, 0.55);
+  transform: rotate(-12deg);
+}
+
+.desk-stain {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(circle, rgba(90,50,20,0.18) 0%, rgba(90,50,20,0.06) 55%, transparent 70%);
+  opacity: 0.9;
+}
+.desk-stain.s1 { width: 90px; height: 70px; top: 30%; left: 3%; transform: rotate(20deg); }
+.desk-stain.s2 { width: 60px; height: 50px; bottom: 18%; right: 8%; transform: rotate(-15deg); }
+
+.desk-paper-scrap {
+  position: absolute; top: 65%; right: 4%;
+  width: 52px; height: 64px;
+  background: #f5f0e6;
+  border: 1px solid rgba(0,0,0,0.1);
+  transform: rotate(12deg);
+  box-shadow: 2px 3px 6px rgba(0,0,0,0.15);
+  opacity: 0.9;
+}
+.desk-paper-scrap::before {
+  content: ""; position: absolute; inset: 6px 5px;
+  border: 1px dashed rgba(0,0,0,0.12);
+}
+.desk-paper-scrap::after {
+  content: "• • •"; position: absolute; top: 18px; left: 0; right: 0;
+  text-align: center; font-size: 0.55rem; color: rgba(0,0,0,0.25); letter-spacing: 0.15em;
+}
+
+.desk-clip-loose {
+  position: absolute; bottom: 12%; left: 5%;
+  width: 28px; height: 14px;
+  background: linear-gradient(180deg, #c8cdd4, #8a929c);
+  border-radius: 3px;
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.25);
+  transform: rotate(-30deg);
+  opacity: 0.85;
+}
+
+.desk-pin {
+  position: absolute; width: 12px; height: 12px; border-radius: 50%;
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4);
+}
+.desk-pin.p1 {
+  top: 42%; right: 6%;
+  background: radial-gradient(circle at 35% 30%, #ff8a8a, #c04040);
+}
+.desk-pin.p2 {
+  bottom: 35%; left: 7%;
+  background: radial-gradient(circle at 35% 30%, #8ad4ff, #3070a0);
+}
+
+.clipboard {
+  position: relative; z-index: 5; width: min(520px, 96vw); margin-top: 1rem;
+  transform: scale(0.88) translateY(24px); opacity: 0;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
+}
+.profile-view.open .clipboard { transform: scale(1) translateY(0); opacity: 1; }
+
+.clip {
+  position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
+  width: 72px; height: 36px;
+  background: linear-gradient(180deg, #c8cdd4 0%, #8a929c 100%);
+  border-radius: 6px 6px 4px 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.4);
+  z-index: 20;
+}
+.clip::before {
+  content: ""; position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+  width: 28px; height: 14px; border: 2px solid #5a6270; border-radius: 3px;
+}
+
+.clip-board {
+  background: #2a3f5f; border-radius: 4px 4px 6px 6px;
+  padding: 1.4rem 1.1rem 1.5rem;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+  position: relative;
+}
+
+.paper {
+  background: var(--paper); border-radius: 2px;
+  padding: 1.35rem 1.2rem 1.6rem; position: relative;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  background-image:
+    radial-gradient(circle at 12% 88%, rgba(255,200,150,0.25) 0, transparent 28%),
+    radial-gradient(circle at 92% 12%, rgba(180,210,255,0.2) 0, transparent 26%),
+    linear-gradient(90deg, transparent 0, transparent 26px,
+      rgba(200,180,140,0.28) 26px, rgba(200,180,140,0.28) 27px, transparent 27px);
+  overflow: hidden;
+}
+
+/* Scrapbook decorations on paper */
+.scrap-decor { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.scrap-decor .sd {
+  position: absolute; font-size: 1.1rem; opacity: 0.55;
+  filter: drop-shadow(1px 1px 0 rgba(0,0,0,0.08));
+}
+.scrap-decor .star1 { top: 8px; right: 14px; color: #f4a261; font-size: 1.35rem; transform: rotate(12deg); }
+.scrap-decor .star2 { bottom: 18%; left: 10px; color: #7ec8e3; font-size: 1rem; transform: rotate(-18deg); }
+.scrap-decor .heart { top: 42%; right: 8px; color: #ef476f; font-size: 0.95rem; transform: rotate(8deg); }
+.scrap-decor .burst { bottom: 8%; right: 22%; color: #ffd166; font-size: 1.2rem; transform: rotate(-6deg); }
+.scrap-decor .smile { top: 22%; left: 6px; color: #2a9d8f; font-size: 1rem; transform: rotate(-10deg); opacity: 0.45; }
+
+.washi {
+  position: absolute; height: 14px; opacity: 0.75;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+.washi-a {
+  top: 4px; left: 18%; width: 72px;
+  background: repeating-linear-gradient(90deg, #ff9f9f 0 6px, #ffe0e0 6px 12px);
+  transform: rotate(-4deg);
+}
+.washi-b {
+  bottom: 12px; right: 12%; width: 56px;
+  background: repeating-linear-gradient(90deg, #9fd4ff 0 5px, #e0f0ff 5px 10px);
+  transform: rotate(6deg);
+}
+
+.corner-stamp {
+  position: absolute; bottom: 10px; left: 10px;
+  font-family: "Fredoka", sans-serif; font-size: 0.65rem; font-weight: 700;
+  color: #c45c5c; border: 1.5px dashed #c45c5c; border-radius: 4px;
+  padding: 2px 6px; transform: rotate(-8deg); opacity: 0.7;
+  letter-spacing: 0.06em;
+}
+
+.id-card {
+  background: linear-gradient(135deg, #1e3a5f 0%, #2a4a7a 55%, #1a3050 100%);
+  border-radius: 10px; padding: 0.75rem 0.85rem; color: #fff;
+  margin-bottom: 1.15rem;
+  box-shadow: 3px 5px 14px rgba(0,0,0,0.28);
+  transform: rotate(-1.2deg); position: relative; z-index: 1;
+  border: 1px solid rgba(255,255,255,0.1); overflow: hidden;
+}
+.id-card::after {
+  content: "★"; position: absolute; top: 6px; right: 10px;
+  font-size: 0.7rem; opacity: 0.35;
+}
+.id-top {
+  display: flex; justify-content: space-between;
+  font-family: "JetBrains Mono", monospace; font-size: 0.55rem;
+  letter-spacing: 0.1em; opacity: 0.75; margin-bottom: 0.55rem;
+}
+.id-body { display: flex; gap: 0.7rem; align-items: center; }
+.id-photo {
+  width: 64px; height: 76px; object-fit: cover; background: #111;
+  border: 1px solid rgba(255,255,255,0.25); border-radius: 2px; flex-shrink: 0;
+}
+.id-photo.placeholder {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; font-weight: 700; color: rgba(255,255,255,0.5);
+  background: rgba(0,0,0,0.35);
+}
+.id-info { flex: 1; min-width: 0; }
+.id-info p {
+  font-family: "JetBrains Mono", monospace; font-size: 0.58rem;
+  letter-spacing: 0.03em; line-height: 1.55; opacity: 0.95;
+  word-break: break-word;
+}
+.id-logo {
+  position: absolute; bottom: 10px; right: 12px;
+  font-family: "Fredoka", sans-serif; font-size: 1.05rem; font-weight: 700;
+  letter-spacing: 0.04em; opacity: 0.28;
+}
+.id-sign {
+  font-family: "Be Vietnam Pro", sans-serif; font-size: 1.1rem; font-weight: 600;
+  margin-top: 0.35rem; opacity: 0.9; transform: rotate(-2deg); display: inline-block;
+}
+
+.profile-name {
+  position: relative; z-index: 1;
+  font-family: "Fredoka", "Be Vietnam Pro", sans-serif; font-weight: 700;
+  font-size: clamp(1.45rem, 4.5vw, 2rem);
+  letter-spacing: 0.01em; color: var(--navy);
+  line-height: 1.15; margin-bottom: 0.15rem;
+}
+.profile-user {
+  position: relative; z-index: 1;
+  font-family: "JetBrains Mono", monospace; font-size: 0.82rem;
+  color: #666; margin-bottom: 0.85rem;
+}
+
+.lists {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 1rem;
+}
+.list-block {
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.list-block h4 {
+  font-family: "JetBrains Mono", monospace; font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase; color: #888; margin-bottom: 0.4rem;
+}
+.list-block ul { list-style: none; }
+.list-block li {
+  font-size: 0.9rem; color: #333; padding: 0.16rem 0; padding-left: 1rem;
+  position: relative; line-height: 1.4;
+}
+.list-block li::before { content: "✦"; position: absolute; left: 0; font-size: 0.65rem; top: 0.28em; color: #2a9d8f; }
+
+.sticky {
+  position: relative; z-index: 1;
+  background: #fff9a0; padding: 0.9rem 0.95rem;
+  box-shadow: 2px 3px 8px rgba(0,0,0,0.12); transform: rotate(1.5deg);
+  margin-top: 0.55rem; border: 1px solid rgba(0,0,0,0.04);
+}
+.sticky::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 14px;
+  background: rgba(0,0,0,0.04);
+}
+.sticky::after {
+  content: "✎"; position: absolute; top: 4px; right: 8px;
+  font-size: 0.75rem; opacity: 0.35;
+}
+.sticky p {
+  font-family: "Be Vietnam Pro", sans-serif; font-size: 0.95rem; line-height: 1.55;
+  color: #2a2a4a; margin-top: 0.15rem; font-weight: 500;
+  white-space: pre-line;
+}
+
+.slogan-line {
+  position: relative; z-index: 1;
+  margin-top: 1.05rem;
+  padding: 0.7rem 0.85rem;
+  background: linear-gradient(135deg, #e8f6ef 0%, #f0faf5 100%);
+  border-radius: 8px;
+  border: 1.5px dashed #7cbc9a;
+  font-size: 0.92rem; color: #2a4a3a;
+  box-shadow: 0 2px 6px rgba(42,157,143,0.08);
+}
+.slogan-line::before {
+  content: "💬"; position: absolute; top: -8px; left: 12px;
+  font-size: 0.9rem; background: var(--paper); padding: 0 4px;
+}
+.slogan-line strong {
+  display: block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.62rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: #5a8a72; margin-bottom: 0.3rem; margin-top: 2px;
+}
+.slogan-line span {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-weight: 600; font-style: italic; line-height: 1.4;
+}
+
+.prop { position: absolute; pointer-events: none; z-index: 1; }
+.prop.pen {
+  width: 14px; height: 110px;
+  background: linear-gradient(90deg, #4a5568, #2d3748);
+  border-radius: 2px 2px 4px 4px; top: 8%; left: -28px; transform: rotate(-18deg);
+  box-shadow: 1px 2px 4px rgba(0,0,0,0.2);
+}
+.prop.pen::after {
+  content: ""; position: absolute; bottom: -8px; left: 2px; width: 10px; height: 12px;
+  background: #c0c0c0; clip-path: polygon(50% 100%, 0 0, 100% 0);
+}
+.prop.envelope {
+  width: 70px; height: 50px; background: #e8e4dc;
+  bottom: -20px; left: -40px; transform: rotate(-12deg);
+  box-shadow: 1px 2px 6px rgba(0,0,0,0.15);
+}
+.prop.notes {
+  width: 48px; height: 56px; background: #fff9a0;
+  bottom: 10%; right: -36px; transform: rotate(8deg);
+  box-shadow: 1px 2px 5px rgba(0,0,0,0.12);
+}
+
+.back-btn {
+  position: fixed; bottom: 1.35rem; left: 50%; transform: translateX(-50%);
+  z-index: 300; background: #1a1a2e; color: #fff; font-weight: 700;
+  font-size: 0.85rem; letter-spacing: 0.07em; padding: 0.75rem 1.5rem;
+  border-radius: 999px; box-shadow: 0 4px 18px rgba(0,0,0,0.4);
+  transition: transform 0.2s, background 0.2s;
+  opacity: 0; pointer-events: none;
+}
+.profile-view.open .back-btn { opacity: 1; pointer-events: auto; }
+.back-btn:hover { transform: translateX(-50%) scale(1.05); background: #2a2a4e; }
+
+@media (max-width: 900px) {
+  .locker-grid { grid-template-columns: repeat(2, 1fr); max-width: 480px; }
+  .locker { max-height: 270px; }
+}
+@media (max-width: 560px) {
+  .locker-grid { grid-template-columns: 1fr; max-width: 240px; }
+  .locker { max-height: 290px; }
+  .lists { grid-template-columns: 1fr; }
+  .prop { display: none; }
+  .title .meet { font-size: 2.2rem; }
+  .title .the { font-size: 1.3rem; }
+  .title .officers { font-size: 2.6rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.15s !important; }
+}
